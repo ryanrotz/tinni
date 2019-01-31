@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { CreateItineraryComponent } from './create-itinerary/create-itinerary.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CreateItineraryComponent
   ],
   imports: [
     BrowserModule
