@@ -4,9 +4,9 @@
 </div>
 
 <div>
-  <button>New itinerary</button>
+  <button (click)="showOrHideCreateItinerary()">New itinerary</button>
 </div>
 
-<div>
+<div *ngIf="showCreateItinerary">
   <app-create-itinerary></app-create-itinerary>
 </div>
