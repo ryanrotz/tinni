@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { CreateItineraryComponent } from './create-itinerary/create-itinerary.component';
@@ -12,7 +12,8 @@ import { CreateItineraryComponent } from './create-itinerary/create-itinerary.co
     CreateItineraryComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
