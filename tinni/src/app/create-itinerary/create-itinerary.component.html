@@ -4,29 +4,41 @@
   <div>
     <label>Name</label>
     <input 
-      formControlName="itineraryName"
+      formControlName="itineraryTitle"
       type="text"
       size="50" 
       placeholder="e.g. 2 weeks in Italy" />
   </div>
   
-  <div>
+  <!-- <div>
     <label>Dates</label>
     <input 
       formControlName="date"
       type="date" /> 
     <span>to</span>
     <input type="date" />
-  </div>
+  </div> -->
   
   <div>
     <label>Trip summary</label>
     <input 
-      formControlName="summary"
+      formControlName="itineraryDescription"
       type="text"
       size="100"
       placeholder="e.g. Venice, Florence, Tuscany, Rome, and Cinque Terra"/>
   </div>
+
+  <div formArrayName="itineraryDays">
+    <div *ngFor="let day of itineraryDays.controls; let i = index">
+      <div [formGroupName]="i">
+        <span formControlName="dayNumber">Day {{ i + 1 }}</span>
+        <input formControlName="title" type="text" size="50" placeholder="Today I'm going to...">
+        <input formControlName="date" type="date">
+      </div>
+    </div>
+  </div>
+  
+  <button (click)="addDay()">Add a day</button>
 
   <button type="submit">Create itinerary</button>
 </form>

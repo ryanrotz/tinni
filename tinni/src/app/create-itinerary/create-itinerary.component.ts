@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { createNgModuleFactory } from '@angular/core/src/view';
 
 @Component({
   selector: 'app-create-itinerary',
@@ -7,20 +8,34 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./create-itinerary.component.css']
 })
 export class CreateItineraryComponent implements OnInit {
+  
+  itineraryForm: FormGroup;
+  itineraryDays: FormArray;
 
-  itineraryForm = this.fb.group({
-    itineraryTitle: [''],
-    itineraryDescription: [''],
-    itineraryDays: this.fb.array([
-      // Each day will get added dynamically but here's an example of adding it statically:
-      // this.fb.group({
-      //   title: [''],
-      //   date: [''],
-      //   dayNumber: ['1'],
-      //   itineraryItems: this.fb.array([])
-      // })
-    ])
-  })
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit() {
+    this.itineraryForm = this.fb.group({
+      itineraryTitle: [''],
+      itineraryDescription: [''],
+      itineraryDays: this.fb.array([])
+    })
+  }
+
+  createDay(): FormGroup {
+    return this.fb.group({
+      title: [''],
+      date: [''],
+      dayNumber: [''],
+      // itineraryItems: this.fb.array([])
+    })
+  }
+
+  addDay(): void {
+    this.itineraryDays = this.itineraryForm.get('itineraryDays') as FormArray; 
+    this.itineraryDays.push(this.createDay());
+  }
+
 
   // Itinerary Days --> added dynamically into itineraryDays FormArray
   day = this.fb.group({
@@ -77,10 +92,7 @@ export class CreateItineraryComponent implements OnInit {
     website: ['']
   })
 
-  constructor(private fb: FormBuilder) { }
 
-  ngOnInit() {
-  }
 
   onSubmit(){
     // TODO: Use EventEmitter with form value
