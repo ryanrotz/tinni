@@ -9,7 +9,6 @@
       size="50" 
       placeholder="e.g. 2 weeks in Italy" />
   </div>
-  
   <!-- <div>
     <label>Dates</label>
     <input 
@@ -18,7 +17,6 @@
     <span>to</span>
     <input type="date" />
   </div> -->
-  
   <div>
     <label>Trip summary</label>
     <input 
@@ -29,11 +27,28 @@
   </div>
 
   <div formArrayName="itineraryDays">
-    <div *ngFor="let day of itineraryDays.controls; let i = index">
+    <div *ngFor="let thing of itineraryDays.controls; let i = index">
       <div [formGroupName]="i">
-        <span formControlName="dayNumber">Day {{ i + 1 }}</span>
+        <!-- <span formControlName="dayNumber">Day {{ i + 1 }}</span> -->
         <input formControlName="title" type="text" size="50" placeholder="Today I'm going to...">
         <input formControlName="date" type="date">
+
+        <!-- Select button with a dropdown of items (flight, car rental, lodging, etc.) -->
+        <button (click)="addNewActivity()">Add activity</button>
+
+        
+        <div formArrayName="itineraryItems">
+          <!-- <div *ngFor="let item of day.get('')"> -->
+          <div *ngFor="let item of itineraryItems.controls; let j = index">
+            <div [formGroupName]="j">
+              <label>Activity</label>
+              <input formControlName="title" type="text" size="25" placeholder="Explore the neighborhood">
+              <label>Description</label>
+              <input formControlName="description" type="text" size="75">
+            </div>
+          </div>
+        </div>
+      
       </div>
     </div>
   </div>

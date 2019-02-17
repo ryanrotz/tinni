@@ -10,7 +10,8 @@ import { createNgModuleFactory } from '@angular/core/src/view';
 export class CreateItineraryComponent implements OnInit {
   
   itineraryForm: FormGroup;
-  itineraryDays: FormArray;
+  // itineraryDays: FormArray;
+  // itineraryItems: FormArray;
 
   constructor(private fb: FormBuilder) { }
 
@@ -22,18 +23,20 @@ export class CreateItineraryComponent implements OnInit {
     })
   }
 
-  createDay(): FormGroup {
-    return this.fb.group({
-      title: [''],
-      date: [''],
-      dayNumber: [''],
-      // itineraryItems: this.fb.array([])
-    })
-  }
+  get itineraryDays() { return this.itineraryForm.get('itineraryDays') as FormArray; }
 
   addDay(): void {
-    this.itineraryDays = this.itineraryForm.get('itineraryDays') as FormArray; 
-    this.itineraryDays.push(this.createDay());
+    this.itineraryDays.push(this.day);
+  }
+
+  get itineraryItems() { return this.day.get('itineraryItems') as FormArray; }
+
+  addNewActivity(): void {
+    // console.log(this.activity);
+    // console.log('hey', this.newActivity);
+    this.activity.setValue(this.newActivity);
+    // console.log('there', this.activity);
+    this.itineraryItems.push(this.activity);
   }
 
 
@@ -41,7 +44,7 @@ export class CreateItineraryComponent implements OnInit {
   day = this.fb.group({
     title: [''],
     date: [''],
-    dayNumber: ['1'],
+    dayNumber: [''],
     itineraryItems: this.fb.array([])
   })
 
@@ -50,6 +53,11 @@ export class CreateItineraryComponent implements OnInit {
     title: [''],
     description: ['']
   })
+  newActivity = {
+    title: [''],
+    description: ['']
+  }
+
   flight = this.fb.group({
     title: [''],
     description: [''],
