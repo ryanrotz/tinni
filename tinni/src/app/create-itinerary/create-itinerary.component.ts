@@ -19,25 +19,59 @@ export class CreateItineraryComponent implements OnInit {
     this.itineraryForm = this.fb.group({
       itineraryTitle: [''],
       itineraryDescription: [''],
-      itineraryDays: this.fb.array([])
+      itineraryDays: this.fb.array([
+        this.initItineraryDays()
+      ])
+    })
+  }
+  initItineraryDays() {
+    return this.fb.group({
+      title: [''],
+      date: [''],
+      dayNumber: [''],
+      itineraryItems: this.fb.array([
+        this.initItineraryItem()
+      ])
+    })
+  }
+  initItineraryItem() {
+    return this.fb.group({
+      title: [''],
+      description: ['']
     })
   }
 
-  get itineraryDays() { return this.itineraryForm.get('itineraryDays') as FormArray; }
+  addDay() {
+    const control = <FormArray>this.itineraryForm.controls['itineraryDays']
+    control.push(this.initItineraryDays());
+  }
+// TODO: see if this works the same way:
+  // get itineraryDays() { 
+    // return this.itineraryForm.get('itineraryDays') as FormArray; 
+  // }
+  // addDay(): void {
+  //   this.itineraryDays.push(this.initItineraryDays());
+  // }
 
-  addDay(): void {
-    this.itineraryDays.push(this.day);
+  addNewActivity(index, activityName) {
+    const control = (<FormArray>this.itineraryForm.controls['itineraryDays']).at(index).get('itineraryItems') as FormArray;
+    // TODO: only add the specific activity (lodging, flight, etc.)
+    control.push(this.initItineraryItem());
   }
 
-  get itineraryItems() { return this.day.get('itineraryItems') as FormArray; }
 
-  addNewActivity(): void {
-    // console.log(this.activity);
-    // console.log('hey', this.newActivity);
-    this.activity.setValue(this.newActivity);
-    // console.log('there', this.activity);
-    this.itineraryItems.push(this.activity);
-  }
+
+
+
+  // get itineraryItems() { return this.day.get('itineraryItems') as FormArray; }
+
+  // addNewActivity(): void {
+  //   // console.log(this.activity);
+  //   // console.log('hey', this.newActivity);
+  //   this.activity.setValue(this.newActivity);
+  //   // console.log('there', this.activity);
+  //   this.itineraryItems.push(this.activity);
+  // }
 
 
   // Itinerary Days --> added dynamically into itineraryDays FormArray
@@ -108,3 +142,5 @@ export class CreateItineraryComponent implements OnInit {
   }
 
 }
+
+// Resources: https://medium.com/hashtaagco/3-levels-of-nested-form-arrays-including-reactive-validations-we-decided-to-go-inception-mode-on-4fffe667fb2a
