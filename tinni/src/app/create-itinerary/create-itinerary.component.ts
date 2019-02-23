@@ -28,10 +28,8 @@ export class CreateItineraryComponent implements OnInit {
     return this.fb.group({
       title: [''],
       date: [''],
-      dayNumber: [''],
-      itineraryItems: this.fb.array([
-        this.initItineraryItem()
-      ])
+      description: [''],
+      itineraryItems: this.fb.array([])
     })
   }
   initItineraryItem() {

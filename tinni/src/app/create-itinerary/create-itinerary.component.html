@@ -1,8 +1,6 @@
-<h1>New Itinerary</h1>
-
 <form [formGroup]="itineraryForm" (ngSubmit)="onSubmit()">
   <div>
-    <label>Name</label>
+    <label>Trip name</label>
     <input 
       formControlName="itineraryTitle"
       type="text"
@@ -22,31 +20,30 @@
     <input 
       formControlName="itineraryDescription"
       type="text"
-      size="100"
+      size="50"
       placeholder="e.g. Venice, Florence, Tuscany, Rome, and Cinque Terra"/>
   </div>
 
 
   <!--  Days  -->
   <div formArrayName="itineraryDays">
-    <!-- <div *ngFor="let thing of itineraryDays.controls; let i = index"> -->
       <div *ngFor="let day of itineraryForm['controls'].itineraryDays['controls']; let i = index">
       <div [formGroupName]="i">
-        <!-- <span formControlName="dayNumber">Day {{ d + 1 }}</span> -->
-        <input formControlName="title" type="text" size="50" placeholder="Today I'm going to...">
+        <!-- <input formControlName="dayNumber" value="Day {{i + 1}}"> -->
+        <div>Day {{i + 1}}</div>
         <input formControlName="date" type="date">
+        <input formControlName="title" type="text" size="50" placeholder="Today I'm going to...">
+        <input formControlName="description" type="text" placeholder="Describe your day">
         
 
-        <!--  Items/Activities  -->
+        <!--  Items / Activities  -->
         <div formArrayName="itineraryItems">
-          <!-- <div *ngFor="let item of day.get('')"> -->
-          <!-- <div *ngFor="let item of itineraryItems.controls; let j = index"> -->
             <div *ngFor="let item of day['controls'].itineraryItems['controls']; let j = index">
             <div [formGroupName]="j">
               <label>Activity</label>
               <input formControlName="title" type="text" size="25" placeholder="Explore the neighborhood">
               <label>Description</label>
-              <input formControlName="description" type="text" size="75">
+              <input formControlName="description" type="text" size="50">
             </div>
           </div>
 
