@@ -60,3 +60,11 @@
 
   <button type="submit">Create itinerary</button>
 </form>
+
+<p>Firebase</p>
+<ul>
+  <li class="text" *ngFor="let thing of things | async">
+    {{thing.name}}
+    <pre>{{ thing | json }}</pre>
+  </li>
+</ul>

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { createNgModuleFactory } from '@angular/core/src/view';
 
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-create-itinerary',
   templateUrl: './create-itinerary.component.html',
@@ -12,8 +15,13 @@ export class CreateItineraryComponent implements OnInit {
   itineraryForm: FormGroup;
   // itineraryDays: FormArray;
   // itineraryItems: FormArray;
+  
+  things: Observable<any[]>;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    db: AngularFirestore
+    ) { this.things = db.collection('things').valueChanges(); }
 
   ngOnInit() {
     this.itineraryForm = this.fb.group({
